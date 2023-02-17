@@ -3,6 +3,7 @@ interface WeatherInfosProps {
   weather: IWeather;
 }
 const WeatherInfos = ({ weather }: WeatherInfosProps) => {
+  console.log(weather);
   return (
     <div className="mt-5 p-5 flex justify-center">
       <div className="border-orange-400 border rounded px-20 py-10">
@@ -16,7 +17,9 @@ const WeatherInfos = ({ weather }: WeatherInfosProps) => {
             })}
           </span>
         )}
-        <h2 className="font-thin text-xl">{weather.name}</h2>
+        <h2 className="font-thin text-xl">
+          {weather.name}, {weather.sys.country}
+        </h2>
         <span className="font-medium text-3xl	">
           {Math.round(weather.main.temp)}°C
         </span>

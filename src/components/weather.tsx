@@ -8,6 +8,7 @@ import IWeather from "../types/weather";
 import WeatherInfos from "./weatherInfos";
 import CitySelection from "./citySelection";
 import { setGlobalApiKey } from "../services/weatherServices";
+import { toast } from "react-toastify";
 
 const Weather = () => {
   const [apiKey, setApiKey] = useState<string>("");
@@ -15,6 +16,7 @@ const Weather = () => {
   const handleApiKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
       setGlobalApiKey(apiKey);
+      toast.success("Token set");
     }
   };
   const handleSelectCity = async (city: ICity) => {
@@ -40,6 +42,15 @@ const Weather = () => {
           }}
           className="  w-30 h-10 rounded bg-white outline-none text-gray-700 pl-2 pr-7 font-bold"
         />
+        <button
+          onClick={() => {
+            setGlobalApiKey(apiKey);
+            toast.success("Token set");
+          }}
+          className="h-10 px-4 text-sm text-white bg-green-500 rounded-lg cursor-pointer hover:bg-green-600"
+        >
+          V
+        </button>
       </div>
       <div className="mt-6 flex items-center justify-center ">
         <CitySelection handleSelectCity={handleSelectCity} />

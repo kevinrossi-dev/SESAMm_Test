@@ -1,6 +1,7 @@
 import ICity from "../types/city";
 import { useState, KeyboardEvent } from "react";
 import { findCitiesByName } from "../services/weatherServices";
+import { toast } from "react-toastify";
 interface CitySelectionProps {
   handleSelectCity: (city: ICity) => Promise<void>;
 }
@@ -8,9 +9,14 @@ const CitySelection = ({ handleSelectCity }: CitySelectionProps) => {
   const [cities, setCities] = useState<ICity[]>([]);
   const [city, setCity] = useState<string>("");
   const handleFindCities = async () => {
-    const data = await findCitiesByName(city);
-    const json = await data.json();
-    setCities(json);
+    const result = await findCitiesByName(city);
+    if (result.ok) {
+      const json = await result.json();
+      setCities(json);
+    } else if (result.status === 401) {
+      console.log("error");
+      toast.error("Bad token");
+    }
   };
   const handleCityKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
@@ -32,7 +38,7 @@ const CitySelection = ({ handleSelectCity }: CitySelectionProps) => {
       />
       <button
         onClick={handleFindCities}
-        className="h-10 px-4 text-sm text-indigo-100 bg-orange-500 rounded-lg cursor-pointer hover:bg-orange-600"
+        className="h-10 px-4 text-sm text-white bg-orange-500 rounded-lg cursor-pointer hover:bg-orange-600"
       >
         Search
       </button>
