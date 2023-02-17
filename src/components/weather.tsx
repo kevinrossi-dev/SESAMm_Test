@@ -1,14 +1,10 @@
-import { KeyboardEvent, useState } from "react";
-import {
-  findCitiesByName,
-  getWeatherByLonLat,
-} from "../services/weatherServices";
+import { useState } from "react";
+import { getWeatherByLonLat } from "../services/weatherServices";
 import ICity from "../types/city";
 import IWeather from "../types/weather";
 import WeatherInfos from "./weatherInfos";
 import CitySelection from "./citySelection";
-import { setGlobalApiKey } from "../services/weatherServices";
-import { toast } from "react-toastify";
+
 import TokenInput from "./tokenInput";
 
 const Weather = () => {
